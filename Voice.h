@@ -5,15 +5,20 @@
 
 class Voice {
 public:
-  Voice(uint8_t index);
-  void noteOn(uint8_t velocity);
-  void noteOff(uint8_t velocity);
+  Voice(byte _output_pin, byte _primary_note, byte _secondary_note,
+        void (*set_output_percentage)(byte, byte));
+  void noteOn(byte velocity);
+  void noteOff(byte velocity);
   bool tick();
+  byte output_pin;
+  byte primary_note;
+  byte secondary_note;
 
 private:
+  void (*_set_output_percentage)(byte pin, byte percentage);
   unsigned long _halt_at;
   bool _on;
-  uint8_t _velocity;
+  byte _velocity;
 };
 
 #endif
